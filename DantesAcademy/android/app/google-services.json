@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "600662929482",
+    "project_id": "dantes-academy",
+    "storage_bucket": "dantes-academy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600662929482:android:8650dc14ed20175218f6b3",
+        "android_client_info": {
+          "package_name": "com.dantesacademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600662929482-03lopm38h9f3aqiiuc7c3ggv9lvd43ei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDAS0iHyK32YysyXbqAWHhOK9NfTDNkV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600662929482-03lopm38h9f3aqiiuc7c3ggv9lvd43ei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
