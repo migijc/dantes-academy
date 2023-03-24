@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Pressable, StyleSheet, Text, View, Image} from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import auth from '@react-native-firebase/auth';
 
 export default function PreLogin(props) {
   function handleGetStartedClick() {
@@ -12,9 +13,19 @@ export default function PreLogin(props) {
     props.navigation.navigate('Sign In');
   }
 
+  // useEffect(() => {
+  //   console.log('rendered')
+  //   if (auth().currentUser) {
+  //     props.navigation.reset({
+  //       index: 0,
+  //       routes: [{name: 'Home'}],
+  //     });
+  //   }
+  // },[]);
+
   return (
     <View style={styles.mainView}>
-      {PawIconLogo}
+      <View style={styles.iconWrapper}>{PawIconLogo}</View>
       <Text style={styles.title}>Dante's Academy</Text>
       <View style={styles.buttonContainer}>
         <Pressable style={styles.button} onPress={handleGetStartedClick}>
@@ -27,14 +38,14 @@ export default function PreLogin(props) {
           <Text style={styles.loginButtonText}>Login</Text>
         </Pressable>
       </View>
-      <Image style={styles.bgImage} source={require('../dante.jpg')} />
+      <Image style={styles.bgImage} source={require('../test1.jpg')} />
     </View>
   );
 }
 
 let styles = StyleSheet.create({
   mainView: {
-    backgroundColor: '#0073e4',
+    // backgroundColor: '#0073e4',
     // backgroundColor: 'red',
     height: '100%',
     width: '100%',
@@ -55,7 +66,7 @@ let styles = StyleSheet.create({
   },
 
   loginButton: {
-    backgroundColor: '#0073e4',
+    backgroundColor: '#00766e',
     height: 50,
     width: '75%',
     borderRadius: 900,
@@ -75,8 +86,11 @@ let styles = StyleSheet.create({
 
   title: {
     fontWeight: 800,
-    color: '#0073e4',
+    color: 'white',
     fontSize: 38,
+    paddingTop: 15,
+    textShadowColor: 'black',
+    textShadowRadius: 2,
   },
 
   buttonText: {
@@ -94,8 +108,20 @@ let styles = StyleSheet.create({
     position: 'absolute',
     zIndex: -1,
   },
+
+  iconWrapper: {
+    // marginTop: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    borderRadius: 900,
+    borderWidth: 8,
+    borderColor: '#00766e',
+    transform: [{rotate: '30deg'}],
+  },
 });
 
 const HomeIcon = <IonIcons name="md-home" color="white" size={15} />;
-const PawIcon = <Fontisto name="paw" size={14} color="#0073e4" />;
-const PawIconLogo = <Fontisto name="paw" size={22} color="#0073e4" />;
+const PawIcon = <Fontisto name="paw" size={14} color="#00766e" />;
+const PawIconLogo = <Fontisto name="paw" size={40} color="white" />;

@@ -11,6 +11,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import DogSignUp from './DogSignUp';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import SignOutButton from './SignOutButton';
 
 export default function SignUp(props) {
   const [newUserName, setNewUserName] = useState('');
@@ -46,7 +47,7 @@ export default function SignUp(props) {
   return (
     <View style={styles.mainView}>
       <View style={styles.header}>
-        {pawIcon}
+        <View style={styles.iconWrapper}>{pawIcon}</View>
         <Text style={styles.headerText}>Dante's Academy</Text>
       </View>
 
@@ -89,12 +90,7 @@ export default function SignUp(props) {
           secureTextEntry
         />
       </View>
-      <Button
-        onPress={() => {
-          auth().signOut();
-        }}
-        title="SignOut"
-      />
+      {/* <SignOutButton /> */}
       <Pressable style={styles.createAccountButton}>
         <Text style={styles.buttonText} onPress={createAccount}>
           Create Account
@@ -123,10 +119,11 @@ const styles = StyleSheet.create({
   },
 
   createAccountButton: {
-    backgroundColor: '#0073e4',
+    backgroundColor: '#00766e',
     height: 55,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 900,
   },
 
   buttonText: {
@@ -145,15 +142,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  iconWrapper: {
+    transform: [{rotate: '30deg'}],
+  },
+
   headerText: {
     fontSize: 40,
     padding: 15,
     fontWeight: '900',
-    color: '#0073e4',
+    color: '#00766e',
     // backgroundColor: '#005397',
     // textShadowColor: '#6e2e42',
     // textShadowRadius: 10,
   },
 });
 
-let pawIcon = <Fontisto name="paw" size={25} color="#0073e4" />;
+let pawIcon = <Fontisto name="paw" size={25} color="#00766e" />;

@@ -10,9 +10,11 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function DogSignUp() {
+export default function DogSignUp(props) {
+  const navigation = useNavigation();
   const [dogName, setDogName] = useState('');
   const [dogDOB, setDogDOB] = useState('');
   const [dogBreed, setDogBreed] = useState('');
@@ -24,7 +26,10 @@ export default function DogSignUp() {
     );
     let dogInfo = getDocInfo();
     let result = await userCollection.add(dogInfo);
-    console.log(result);
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Home'}],
+    });
   }
 
   function getDocInfo() {
@@ -83,10 +88,11 @@ let styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: '#0073e4',
+    backgroundColor: '#00766e',
     height: 55,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 900,
   },
 
   buttonText: {
@@ -102,8 +108,8 @@ let styles = StyleSheet.create({
     fontSize: 40,
     padding: 15,
     fontWeight: '900',
-    color: '#0073e4',
+    color: '#00766e',
   },
 });
 
-let pawIcon = <Fontisto name="paw" size={25} color="#0073e4" />;
+let pawIcon = <Fontisto name="paw" size={25} color="#00766e" />;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,10 +8,24 @@ import {
   Pressable,
 } from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import auth from '@react-native-firebase/auth';
 
 export default function SignIn(props) {
+  const [emailToAttempt, setEmailToAttempt] = useState('');
+  const [passwordToAttempt, setPasswordToAttempt] = useState('');
+
   function handleNewAccountClick() {
     props.navigation.navigate('Sign Up');
+  }
+
+  async function attemptSignIn(email, password) {
+    let user = await auth().signInWithEmailAndPassword(email, password);
+    if (user) {
+      props.navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
+    }
   }
 
   return (
@@ -25,19 +39,23 @@ export default function SignIn(props) {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor={'black'}
+          onChangeText={e => setEmailToAttempt(e)}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           placeholderTextColor={'black'}
           secureTextEntry
+          onChangeText={e => setPasswordToAttempt(e)}
         />
         <Pressable onPress={handleNewAccountClick}>
           <Text style={styles.signUpText}>Dont Have an Account?</Text>
         </Pressable>
       </View>
 
-      <Pressable style={styles.signInButton}>
+      <Pressable
+        style={styles.signInButton}
+        onPress={() => attemptSignIn(emailToAttempt, passwordToAttempt)}>
         <Text style={{color: 'white', fontWeight: '800', fontSize: 19}}>
           Sign In
         </Text>
@@ -57,7 +75,7 @@ let styles = StyleSheet.create({
     fontSize: 40,
     padding: 15,
     fontWeight: '900',
-    color: '#0073e4',
+    color: '#00766e',
     // backgroundColor: '#005397',
     // textShadowColor: '#6e2e42',
     // textShadowRadius: 10,
@@ -79,15 +97,16 @@ let styles = StyleSheet.create({
   },
 
   signInButton: {
-    backgroundColor: '#0073e4',
+    backgroundColor: '#00766e',
     height: 55,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 900,
   },
 
   signUpText: {
     textAlign: 'center',
-    color: '#0073e4',
+    color: '#00766e',
     fontWeight: '800',
     fontSize: 18,
   },
@@ -97,4 +116,4 @@ let styles = StyleSheet.create({
   },
 });
 
-let pawIcon = <Fontisto name="paw" size={25} color="#0073e4" />;
+let pawIcon = <Fontisto name="paw" size={25} color="#00766e" />;
