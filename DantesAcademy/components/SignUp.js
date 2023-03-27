@@ -12,6 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 import DogSignUp from './DogSignUp';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import SignOutButton from './SignOutButton';
+import TemporaryLogo from './TemporaryLogo';
 
 export default function SignUp(props) {
   const [newUserName, setNewUserName] = useState('');
@@ -27,13 +28,20 @@ export default function SignUp(props) {
       newUserEmail,
       newUserPassword,
     );
-    let result = await usersCollection
-      .doc(account.user.uid)
-      .set(addNewUserToDb());
+    await usersCollection.doc(account.user.uid).set(getDocData());
+    let ghostNotesDocRef = firestore()
+      .collection(`users/${account.user.uid}/customNotes`)
+      .doc('ghost');
+    ghostNotesDocRef.set({hey: 1});
+
+    let adDocRef = firestore()
+      .collection(`users/${account.user.uid}/adInfo`)
+      .doc('data');
+    adDocRef.set({lastAdDisplayTime: null, displayAd: false});
     props.navigation.reset({index: 0, routes: [{name: 'Dog Register'}]});
   }
 
-  function addNewUserToDb() {
+  function getDocData() {
     let newUserId = auth().currentUser.uid;
 
     return {
@@ -46,11 +54,11 @@ export default function SignUp(props) {
 
   return (
     <View style={styles.mainView}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <View style={styles.iconWrapper}>{pawIcon}</View>
         <Text style={styles.headerText}>Dante's Academy</Text>
-      </View>
-
+      </View> */}
+      <TemporaryLogo />
       <View style={styles.basicInfo}>
         <TextInput
           style={styles.input}
@@ -58,6 +66,8 @@ export default function SignUp(props) {
             setNewUserName(e);
           }}
           placeholder="First name"
+          placeholderTextColor={'#b6b6b6'}
+          cursorColor={'#00766e'}
         />
         <TextInput
           style={styles.input}
@@ -65,6 +75,8 @@ export default function SignUp(props) {
             setNewUserLastName(e);
           }}
           placeholder="Last name"
+          placeholderTextColor={'#b6b6b6'}
+          cursorColor={'#00766e'}
         />
         <TextInput
           style={styles.input}
@@ -72,6 +84,8 @@ export default function SignUp(props) {
             setNewUserEmail(e);
           }}
           placeholder="Email"
+          placeholderTextColor={'#b6b6b6'}
+          cursorColor={'#00766e'}
         />
         <TextInput
           style={styles.input}
@@ -79,7 +93,9 @@ export default function SignUp(props) {
             setNewUserPassword(e);
           }}
           placeholder="Password"
+          placeholderTextColor={'#b6b6b6'}
           secureTextEntry
+          cursorColor={'#00766e'}
         />
         <TextInput
           style={styles.input}
@@ -87,7 +103,9 @@ export default function SignUp(props) {
             setPasswordConfirm(e);
           }}
           placeholder="Confirm Password"
+          placeholderTextColor={'#b6b6b6'}
           secureTextEntry
+          cursorColor={'#00766e'}
         />
       </View>
       {/* <SignOutButton /> */}
@@ -102,15 +120,23 @@ export default function SignUp(props) {
 
 const styles = StyleSheet.create({
   mainView: {
-    height: '100%',
-    backgroundColor: 'white',
+    // height: '100%',
+    // width: '100%',
+    flex: 1,
+    backgroundColor: '#101826',
+    justifyContent: 'space-between',
+    // alignItems: 'center',
     padding: 20,
+    paddingTop: 80,
+    paddingBottom: 80,
   },
 
   basicInfo: {
     flexDirection: 'column',
-    // backgroundColor: 'gray',
+    backgroundColor: 'rgba(255,255,255, .2)',
     gap: 10,
+    padding: 15,
+    borderRadius: 7,
   },
 
   pageTitle: {
@@ -132,10 +158,11 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: 'rgb(150, 150, 150)',
-    color: 'black',
+    color: 'white',
+    paddingLeft: 5,
   },
 
   header: {
@@ -151,9 +178,6 @@ const styles = StyleSheet.create({
     padding: 15,
     fontWeight: '900',
     color: '#00766e',
-    // backgroundColor: '#005397',
-    // textShadowColor: '#6e2e42',
-    // textShadowRadius: 10,
   },
 });
 

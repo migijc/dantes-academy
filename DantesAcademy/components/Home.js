@@ -63,8 +63,8 @@ export default function Home(props) {
             return commandInfoList[count];
           }}
         />
-        <BottomMenu />
-        {/* <SignOutButton /> */}
+        {/* <BottomMenu /> */}
+        <SignOutButton />
       </View>
     );
   } else return <ActivityIndicator />;
@@ -72,12 +72,9 @@ export default function Home(props) {
 
 let styles = StyleSheet.create({
   mainView: {
-    height: '100%',
-    // padding: 15,
-    // paddingBottom: 0,
+    minHeight: '100%',
     width: '100%',
-    // backgroundColor: '#101826',
-    backgroundColor: 'white',
+    backgroundColor: '#101826',
   },
 
   titleContainer: {
@@ -89,31 +86,36 @@ let styles = StyleSheet.create({
   pageTitle: {
     color: 'white',
     textAlign: 'center',
-    padding: 15,
+    padding: 12,
     fontWeight: 500,
-    fontSize: 30,
-    borderBottomWidth: 8,
-    borderBottomColor: 'rgb(220,220,220)',
+    fontSize: 25,
+    // borderBottomWidth: 8,
+    // borderBottomColor: 'rgb(220,220,220)',
     backgroundColor: '#ad7934',
     minWidth: '100%',
   },
 
   commandButton: {
+    // flex: 1,
     backgroundColor: '#00766e',
     borderColor: '#357c76',
-    borderWidth: 9,
+    borderWidth: 5,
     color: 'white',
-    width: '40%',
+    width: '35%',
     height: 95,
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
     marginTop: 20,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
 
   buttonList: {
+    // padding: 10,
+    // borderWidth: 3,
+    // borderColor: 'green',
     padding: 10,
   },
 

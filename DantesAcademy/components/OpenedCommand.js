@@ -3,11 +3,16 @@ import {
   Text,
   View,
   ActivityIndicator,
-  Button,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import registerCommandButtonClick from '../helperFunctions/registerCommandButtonClick';
+import auth from '@react-native-firebase/auth';
+import CommandNotes from './CommandNotes';
+
+const screenWidth = Dimensions.get('window').width;
 
 export default function OpenedCommand(props) {
   const [commandInfo, setCommandInfo] = useState(null);
@@ -19,13 +24,28 @@ export default function OpenedCommand(props) {
       commands[props.route.params.commandName],
     );
     let resultDoc = await commandDoc.get();
-    let data = resultDoc['_data'];
+    let data = resultDoc.data();
     setCommandInfo(data);
   }
 
   useEffect(() => {
     getCommandInfo();
   }, []);
+
+  useEffect(() => {
+    console.log('renedered');
+    if (commandInfo) {
+      let docInfo = {
+        commandName: commandInfo.commandName,
+        commandId: commandInfo.commandId,
+        customNoteAdded: false,
+        dogId: 'needToAdd',
+        userId: auth().currentUser.uid,
+        submissionTime: `${new Date().getTime()}`,
+      };
+      registerCommandButtonClick(docInfo);
+    }
+  }, [commandInfo]);
 
   useEffect(() => {
     let count = 1;
@@ -51,55 +71,95 @@ export default function OpenedCommand(props) {
   useEffect(() => {
     console.log('rendered');
   });
+
   if (commandInfo && stepViewsList) {
     return (
-      <ScrollView alignItems="center" style={styles.mainView}>
-        <View style={styles.header}>
-          <Text style={styles.commandTitle}>{commandInfo.commandName}</Text>
-          <Text style={styles.description}>{commandInfo.description}</Text>
-        </View>
-        <View style={styles.stepsTitleContainer}>
-          <Text style={styles.stepsTitle}>Steps</Text>
-        </View>
-        <View style={styles.content}>
-          {stepViewsList.map(step => {
-            return step;
-          })}
-        </View>
-        <Text style={styles.closingTip}>* {commandInfo.closingTip}</Text>
-        {/* <Button title="Great Success" /> */}
-      </ScrollView>
+      <View style={styles.mainWrapper}>
+        <ScrollView horizontal pagingEnabled style={styles.mainView}>
+          <View style={styles.pageStyle}>
+            <View style={styles.test}>
+              <Text style={styles.commandTitle}>{commandInfo.commandName}</Text>
+              <Text style={styles.description}>{commandInfo.description}</Text>
+              <Text style={styles.closingTip}>* {commandInfo.closingTip}</Text>
+            </View>
+          </View>
+          <View style={styles.pageStyle}>
+            <ScrollView style={styles.test}>
+              <View style={styles.stepsTitleContainer}>
+                <Text style={styles.stepsTitle}>Steps</Text>
+              </View>
+              <View style={styles.content}>
+                {stepViewsList.map(step => {
+                  return step;
+                })}
+              </View>
+            </ScrollView>
+          </View>
+          <View style={styles.pageStyle}>
+            <View style={styles.test}>
+              <CommandNotes thisCommand={commandInfo.commandName} />
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     );
-  } else return <ActivityIndicator />;
+  } else {
+    return <ActivityIndicator />;
+  }
 }
 
 const styles = StyleSheet.create({
-  mainView: {
-    flex: 1,
-    backgroundColor: '#101826',
-    // paddingBottom: 60,
+  mainWrapper: {
+    height: '100%',
+    // padding: 20,
   },
 
   header: {
     backgroundColor: '#101826',
-    minWidth: '100%',
-    alignSelf: 'center',
+  },
+
+  mainView: {
+    backgroundColor: '#101826',
+    // paddingTop: 10,
+    // width: '100%',
+    // flexDirection: 'row',
+    flex: 1,
+    // paddingTop: 40,
+    // paddingBottom: 40,
+  },
+
+  pageStyle: {
+    flex: 1,
+    width: screenWidth,
+    paddingBottom: 60,
+    paddingTop: 60,
+    padding: 20,
+  },
+
+  test: {
+    borderRadius: 19,
+    borderWidth: 1.2,
+    borderColor: '#00766e',
+    flex: 1,
+    backgroundColor: 'transparent',
+    // padding: 12,
   },
 
   content: {
-    padding: 8,
-    paddingTop: 2,
+    // padding: 14,
+    paddingTop: 29,
+    paddingBottom: 29,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderTopWidth: 0,
-    borderColor: '#00766e',
-    backgroundColor: '#00766e',
+    // borderWidth: 3,
+    // borderTopWidth: 0,
+    // borderColor: '#00766e',
+    backgroundColor: 'transparent',
   },
 
   commandTitle: {
     color: 'white',
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: 700,
     paddingLeft: 20,
     textDecorationLine: 'underline',
@@ -107,39 +167,39 @@ const styles = StyleSheet.create({
 
   description: {
     textAlign: 'left',
-    fontWeight: 400,
-    fontSize: 17,
+    fontWeight: 700,
+    fontSize: 18,
     padding: 27,
     paddingTop: 10,
     color: '#b4b4b4',
   },
 
   closingTip: {
-    fontWeight: 600,
+    fontWeight: 400,
     fontSize: 15,
-    padding: 35,
+    padding: 25,
     textAlign: 'center',
     fontStyle: 'italic',
     color: '#ad7934',
-    backgroundColor: '#101826',
-    minWidth: '100%',
+    // color: 'black',
+    // backgroundColor: '#101826',
+    // minWidth: '100%',
   },
 
   stepText: {
     color: '#5c5c5c',
-    fontWeight: 700,
-    fontSize: 18,
+    fontWeight: 600,
+    fontSize: 17,
   },
 
   stepsTitleContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    // marginTop: 40,
-    padding: 8,
-    paddingTop: 16,
-    backgroundColor: '#00766e',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    // padding: 8,
+    // paddingTop: 16,
+    backgroundColor: 'transparent',
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20,
   },
 
   stepsTitle: {
@@ -150,10 +210,14 @@ const styles = StyleSheet.create({
 
   stepContainer: {
     minWidth: '100%',
-    padding: 28,
-    marginTop: 8,
-    backgroundColor: 'rgb(220,220,220)',
+    padding: 22,
+    // marginTop: 8,
+    backgroundColor: 'transparent',
     borderRadius: 16,
+  },
+
+  pageTwo: {
+    flex: 1,
   },
 });
 

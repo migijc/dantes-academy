@@ -17,6 +17,7 @@ import SignUp from './components/SignUp';
 import DogSignUp from './components/DogSignUp';
 import PreLogin from './components/PreLogin';
 import OpenedCommand from './components/OpenedCommand';
+import BottomMenu from './components/BottomMenu';
 // type SectionProps = PropsWithChildren<{
 //   title: string;
 // }>;
@@ -80,7 +81,8 @@ function App(): JSX.Element {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    height: '100%',
+    // height: '100%',
+    flex: 1,
   };
 
   return (
@@ -92,9 +94,14 @@ function App(): JSX.Element {
           <stack.Screen name="Sign In" component={SignIn} />
           <stack.Screen name="Sign Up" component={SignUp} />
           <stack.Screen name="Dog Register" component={DogSignUp} />
-          <stack.Screen name="Opened Command" options={{title: ""}} component={OpenedCommand} />
+          <stack.Screen
+            name="Opened Command"
+            options={{title: 'Command Name'}}
+            component={OpenedCommand}
+          />
         </stack.Navigator>
       </SafeAreaView>
+      <BottomMenu />
     </NavigationContainer>
   );
 }

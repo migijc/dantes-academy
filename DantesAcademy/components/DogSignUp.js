@@ -10,8 +10,8 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import { useNavigation } from '@react-navigation/native';
-
+import {useNavigation} from '@react-navigation/native';
+import TemporaryLogo from './TemporaryLogo';
 
 export default function DogSignUp(props) {
   const navigation = useNavigation();
@@ -21,11 +21,14 @@ export default function DogSignUp(props) {
 
   async function enterDogData() {
     let userID = auth().currentUser.uid;
-    let userCollection = firestore().collection(
+    let userCollectionRef = firestore().collection('users');
+    let dogCollectionRef = firestore().collection(
       `users/${userID}/dogInformation`,
     );
     let dogInfo = getDocInfo();
-    let result = await userCollection.add(dogInfo);
+    let result = await dogCollectionRef.add(dogInfo);
+    await dogCollectionRef.doc(`${result.id}`).update({dogId: result.id});
+    await userCollectionRef.doc(`${userID}`).update({dogId: result.id});
     navigation.reset({
       index: 0,
       routes: [{name: 'Home'}],
@@ -44,10 +47,11 @@ export default function DogSignUp(props) {
 
   return (
     <View style={styles.mainView}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         {pawIcon}
         <Text style={styles.headerText}>Dante's Academy</Text>
-      </View>
+      </View> */}
+      <TemporaryLogo />
       <Text>Register Doggo</Text>
       <TextInput
         style={styles.input}
@@ -82,9 +86,9 @@ let styles = StyleSheet.create({
 
   mainView: {
     gap: 10,
-    padding: 10,
+    // padding: 10,
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#101826',
   },
 
   button: {

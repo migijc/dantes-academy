@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import auth from '@react-native-firebase/auth';
+import TemporaryLogo from './TemporaryLogo';
 
 export default function SignIn(props) {
   const [emailToAttempt, setEmailToAttempt] = useState('');
@@ -30,21 +31,22 @@ export default function SignIn(props) {
 
   return (
     <View style={styles.mainView}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         {pawIcon}
         <Text style={styles.headerText}>Dante's Academy</Text>
-      </View>
+      </View> */}
+      <TemporaryLogo />
       <View style={styles.InputContainer}>
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor={'black'}
+          placeholderTextColor={'#b6b6b6'}
           onChangeText={e => setEmailToAttempt(e)}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
-          placeholderTextColor={'black'}
+          placeholderTextColor={'#b6b6b6'}
           secureTextEntry
           onChangeText={e => setPasswordToAttempt(e)}
         />
@@ -67,8 +69,8 @@ export default function SignIn(props) {
 let styles = StyleSheet.create({
   mainView: {
     height: '100%',
-    backgroundColor: 'white',
-    padding: 20,
+    backgroundColor: '#101826',
+    // backgroundColor: 'rgb(235,235,235)',
   },
 
   headerText: {
@@ -89,9 +91,9 @@ let styles = StyleSheet.create({
 
   input: {
     // backgroundColor: 'rgba(0,0, 0,.4)',
-    height: 51,
+    // height: 51,
     paddingLeft: 10,
-    color: 'black',
+    color: 'white',
     borderBottomColor: 'rgb(150, 150, 150)',
     borderBottomWidth: 1,
   },
