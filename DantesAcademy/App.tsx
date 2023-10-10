@@ -5,124 +5,122 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, SafeAreaView, useColorScheme} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {SafeAreaView, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
-import auth from '@react-native-firebase/auth';
 import SignUp from './components/SignUp';
 import DogSignUp from './components/DogSignUp';
 import PreLogin from './components/PreLogin';
 import OpenedCommand from './components/OpenedCommand';
 import BottomMenu from './components/BottomMenu';
-// type SectionProps = PropsWithChildren<{
-//   title: string;
-// }>;
-
-// function Section({children, title}: SectionProps): JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// }
+import ProfileScreen from './components/ProfileScreen';
+import NewSessionScreen from './components/NewSessionScreen';
+import auth from '@react-native-firebase/auth';
+import MenuScreen from './components/MenuScreen';
+import mobileAds from 'react-native-google-mobile-ads';
+import TestAd from './components/TestAd';
 
 function App(): JSX.Element {
-  // const [user, setUser] = useState(false);
+  // const [user, setUser] = useState(null);
   const isDarkMode = useColorScheme() === 'dark';
+  // const [rerender, setRerender] = useState(false);
   const stack = createNativeStackNavigator();
-  const [currentUser, setCurrentUser] = useState(null);
-  const [initialRoute, setInitialRoute] = useState('Pre Login');
-
-  function getUser() {
-    if (currentUser === null) {
-      auth().onAuthStateChanged(() => {
-        if (auth().currentUser) {
-          let user = auth().currentUser;
-          setCurrentUser(user);
-          setInitialRoute('Home');
-        }
-      });
-    }
-    return;
-  }
-
-  useEffect(() => {
-    console.log('rerendered');
-    console.log(currentUser || 'No User');
-    console.log(initialRoute);
-    getUser();
-  });
-
-  // useEffect(() => {
-  //   console.log(currentUser);
-  // }, [currentUser])
-
+  const navigatorRef = useRef(null);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    // height: '100%',
     flex: 1,
   };
 
+  mobileAds().initialize();
+  // .then(adapterStatuses => {
+  //   // Initialization complete!
+  // });
+
+  // useEffect(() => {
+  //   auth().onAuthStateChanged(current => {
+  //     setUser(current);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log(user);
+  // });
+
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigatorRef}>
       <SafeAreaView style={backgroundStyle}>
-        <stack.Navigator initialRouteName={initialRoute}>
-          <stack.Screen name="Home" component={Home} />
-          <stack.Screen name="Pre Login" component={PreLogin} />
-          <stack.Screen name="Sign In" component={SignIn} />
-          <stack.Screen name="Sign Up" component={SignUp} />
-          <stack.Screen name="Dog Register" component={DogSignUp} />
-          <stack.Screen
-            name="Opened Command"
-            options={{title: 'Command Name'}}
-            component={OpenedCommand}
-          />
+        <stack.Navigator>
+          <>
+            <stack.Screen
+              name="Home"
+              component={Home}
+              options={{headerShown: false}}
+            />
+            <stack.Screen
+              name="Dog Register"
+              options={{headerShown: false}}
+              component={DogSignUp}
+            />
+            <stack.Screen
+              name="New Session"
+              options={{headerShown: false}}
+              component={NewSessionScreen}
+            />
+            <stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{headerShown: false}}
+            />
+            <stack.Screen
+              name="Opened Command"
+              // options={{title: 'Command Name', headerShown: false}}
+              component={OpenedCommand}
+            />
+            <stack.Screen
+              name="Menu Screen"
+              options={{headerShown: false}}
+              component={MenuScreen}
+            />
+          </>
         </stack.Navigator>
       </SafeAreaView>
+      <TestAd/>
       <BottomMenu />
     </NavigationContainer>
   );
-}
+  // type SectionProps = PropsWithChildren<{
+  //   title: string;
+  // }>;
 
-// const styles = StyleSheet.create({
-//   sectionContainer: {
-//     marginTop: 32,
-//     paddingHorizontal: 24,
-//   },
-//   sectionTitle: {
-//     fontSize: 24,
-//     fontWeight: '600',
-//   },
-//   sectionDescription: {
-//     marginTop: 8,
-//     fontSize: 18,
-//     fontWeight: '400',
-//   },
-//   highlight: {
-//     fontWeight: '700',
-//   },
-// });
+  // function Section({children, title}: SectionProps): JSX.Element {
+  //   const isDarkMode = useColorScheme() === 'dark';
+  //   return (
+  //     <View style={styles.sectionContainer}>
+  //       <Text
+  //         style={[
+  //           styles.sectionTitle,
+  //           {
+  //             color: isDarkMode ? Colors.white : Colors.black,
+  //           },
+  //         ]}>
+  //         {title}
+  //       </Text>
+  //       <Text
+  //         style={[
+  //           styles.sectionDescription,
+  //           {
+  //             color: isDarkMode ? Colors.light : Colors.dark,
+  //           },
+  //         ]}>
+  //         {children}
+  //       </Text>
+  //     </View>
+  //   );
+  // }
+}
 
 export default App;

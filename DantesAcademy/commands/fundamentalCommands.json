@@ -1,0 +1,111 @@
+{
+  "0": {
+    "commandName": "Focus",
+    "description": "A command to improve concentration and productivity.",
+    "closingTip": "Achieve your goals by staying focused.",
+    "steps": [
+      "Hold a treat in front of your dog’s nose and let them see it. Then slowly bring the treat up to your eyes. Your dog should follow the treat with their gaze and end up looking at your face.",
+      "As soon as your dog looks at your face, mark the moment with a word (“yes”) or a clicker and reward them with the treat.",
+      "Repeat this several times until your dog looks at your face reliably when you move the treat up to your eyes.",
+      "Next, add your cue by saying “focus” or “look” before you move the treat up to your eyes. Reward them when they look at your face.",
+      "Then, practice this without using a treat as a lure. Just say “focus” or “look” and wait for your dog to look at your face. Reward them when they do.",
+      "Gradually increase the duration that your dog has to look at you before getting rewarded. Start with one second, then two seconds, then three seconds, and so on.",
+      "Practice this in different situations and environments with varying levels of distractions."
+    ]
+  },
+  "1": {
+    "commandName": "Sit",
+    "description": "A command to teach your dog to sit on command.",
+    "closingTip": "The sit command is a basic and important skill that every dog should know. It can help your dog calm down, focus on you, and behave politely.",
+    "steps": [
+      "Get a treat handy and hold it close to your dog’s nose.",
+      "Move your hand up slowly, allowing your dog’s head to follow the treat and causing their bottom to lower.",
+      "As soon as your dog is in a sitting position, say “sit” and give them the treat and praise.",
+      "Repeat this several times until your dog sits reliably when you move the treat over their head.",
+      "Next, add a hand signal by raising your empty hand over your dog’s head instead of using the treat. Reward them with a treat from your other hand when they sit.",
+      "Then, add a verbal cue by saying “sit” before you give the hand signal. Reward them when they sit.",
+      "Gradually phase out the hand signal and the treats until your dog responds to the verbal cue alone."
+    ]
+  },
+  "2": {
+    "commandName": "Down",
+    "description": "A command to teach your dog to lie down on command.",
+    "closingTip": "The down command is another basic and useful skill that every dog should know. It can help your dog relax, stay calm, and be polite.",
+    "steps": [
+      "With your dog in a standing position, hold a treat or a toy by their nose.",
+      "Slowly lower the treat or toy down to your dog’s front paws. Your dog should lower their head to follow it.",
+      "With your dog’s head lowered to the ground, slowly move the treat or toy away from them along the floor. Your dog should lie down to reach it.",
+      "As soon as your dog is in a down position, say “down” and give them the treat or toy and praise.",
+      "Repeat this several times until your dog lies down reliably when you move the treat or toy along the floor.",
+      "Next, use an empty hand to lure your dog and reward them with a treat or toy from your other hand. The movement of your empty hand will become your hand signal for down.",
+      "Then, add a verbal cue by saying “down” before you give the hand signal. Reward them when they lie down.",
+      "Gradually phase out the hand signal and the treats until your dog responds to the verbal cue alone."
+    ]
+  },
+  "3": {
+    "commandName": "Stay",
+    "description": "A command to teach your dog to remain in one position until released.",
+    "closingTip": "The stay command is an important skill that can help your dog learn to be patient, calm, and focused. It involves teaching your dog to remain in one position until released, even when you are not nearby. With consistent training and practice, the stay command can help your dog become better behaved and more obedient.",
+    "steps": [
+      "Start with your dog in a sitting or lying down position.",
+      "Hold your hand up, palm facing your dog, and say \"stay.\"",
+      "Take a step back, and if your dog remains in position, praise and reward them.",
+      "Increase the distance gradually, taking small steps backward, while asking your dog to stay.",
+      "Practice with distractions, such as toys or treats, to help your dog learn to focus on you. Use a release word or phrase such as \"okay\" to signal that your dog is free to move. Increase the duration of the stay by gradually lengthening the time between the command and the release.",
+      "Repeat the training regularly with positive reinforcement until your dog can stay in position reliably."
+    ]
+  },
+  "4": {
+    "commandName": "Wait",
+    "description": "A command to teach your dog to stay where they are and not move forward until released.",
+    "closingTip": "The wait command is a useful skill that teaches your dog to stay where they are and not move forward until released. It can prevent your dog from bolting out the door or out of the crate, and it can also help them learn self-control and patience.",
+    "steps": [
+      "Start by asking your dog to sit or lie down in front of a door or a crate that you want them to wait at.",
+      "Give them the command “wait” and open the door a little bit. If they try to move forward, close the door quickly and say “no.”",
+      "Repeat this until your dog stays still when you open the door slightly. Then reward them with praise or a treat and let them go through with a release word like “free” or “okay.”",
+      "Gradually increase the amount that you open the door and the time that your dog has to wait before being released. Always reward them for waiting patiently and calmly.",
+      "Practice this in different situations and locations, such as before feeding, walking, getting out of the car, etc."
+    ]
+  },
+  "5": {
+    "commandName": "Leave It",
+    "description": "A command to teach your dog to ignore something they want, such as food or objects.",
+    "closingTip": "The leave it command is a valuable skill that teaches your dog to ignore something that they want, such as food, toys, or other objects. It can help your dog stay safe, avoid trouble, and respect boundaries.",
+    "steps": [
+      "Offer your dog a tasty treat and encourage them to “take it” in an upbeat, friendly voice.",
+      "Hold another treat in your hand with your fist closed around it. Let your dog sniff, lick and paw at your hand, but don’t let them get the treat.",
+      "Wait patiently and don’t say anything until your dog stops trying to get the treat and moves away from your hand.",
+      "As soon as they do, mark the moment with a word (“yes”) or a clicker and reward them with the treat from your hand.",
+      "Repeat this until your dog consistently moves away from the treat when you hold it in your fist.",
+      "Next, add your cue by saying “leave it” before you present the treat in your fist. Reward them when they move away from it.",
+      "Then, practice this with different treats and objects on the floor or on a table. Say “leave it” before you show them the object and reward them when they ignore it.",
+      "Gradually increase the difficulty by using more tempting objects or moving them closer to your dog."
+    ]
+  },
+  "6": {
+    "commandName": "Come",
+    "description": "A command to teach your dog to come when called.",
+    "closingTip": "The come command is a crucial skill for every dog to learn, as it helps them return to their owner when called. It also promotes safety and prevents them from running off or getting into dangerous situations.",
+    "steps": [
+      "Start indoors at shorter distances, like 10 or 15 feet. Make eye contact with your dog and clearly say “come” in a cheerful voice. You can say your dog’s name but always follow their name with “come”.",
+      "You need an incentive to encourage your dog to come back - a really tasty treat or a fun game with a toy. Show your dog the toy or food.",
+      "Run away a couple of paces then call your dog’s name and say “come” in a friendly, exciting tone - getting down low can also encourage them to come back.",
+      "As soon as your dog approaches you, click/mark the moment then praise like crazy while you offer a favorite reward.",
+      "Repeat these steps multiple times until you can begin tossing the treat a little further away."
+    ]
+  },
+  "7": {
+    "commandName": "Off",
+    "description": "A command to teach your dog to remove their paws from something or someone.",
+    "closingTip": "The off command is a handy skill that teaches your dog to get their paws off of something, such as a person, a couch, or a counter. It can help your dog learn manners, respect, and self-control.",
+    "steps": [
+      "Have your dog sit in front of you while you hold a yummy treat in front of their nose. Allow your dog to sniff the treat, but make sure they can’t grab it. Your dog may paw at it or get frustrated while trying to get the treat.",
+      "Give the verbal command “off” and wait for your dog to stop touching the treat with their nose or paws. As soon as they do, praise them and give them the treat.",
+      "Repeat this several times until your dog stops touching the treat when you say “off”. Then try holding the treat closer to their nose or moving it around slightly to make it more challenging.",
+      "Next, practice this with other objects that your dog likes to touch or jump on, such as toys, furniture, or people. Say “off” and reward your dog when they move away from the object.",
+      "Gradually phase out the treats and use praise and petting as rewards instead."
+    ]
+  }
+}
+
+

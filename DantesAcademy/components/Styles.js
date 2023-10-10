@@ -4,21 +4,14 @@ import {StyleSheet} from 'react-native';
 export default function Styles() {
   let styles = StyleSheet.create({
     mainView: {
-      // backgroundColor: '#0073e4',
-      // backgroundColor: '#101826',
-      //   height: '100%',
-      //   width: '100%',
-      backgroundColor: 'white',
+      backgroundColor: '#1b212e',
       flex: 1,
       padding: 20,
-      // paddingTop: 80,
-      // paddingBottom: 80,
-      alignItems: 'center',
       justifyContent: 'space-evenly',
     },
 
     signUp: {
-      backgroundColor: 'white',
+      backgroundColor: '#eee',
       height: 55,
       borderColor: '#00766e',
       borderWidth: 3,
@@ -63,10 +56,12 @@ export default function Styles() {
     },
 
     slogan: {
-      color: 'gray',
+      color: '#eee',
       fontWeight: 300,
-      fontSize: 14.5,
+      fontSize: 12.5,
       paddingBottom: 5,
+      fontWeight: 700,
+      opacity: 0.45,
     },
   });
 

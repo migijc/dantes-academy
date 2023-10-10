@@ -1,4 +1,7 @@
 {
   "name": "DantesAcademy",
-  "displayName": "DantesAcademy"
+  "displayName": "DantesAcademy",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-4877096179531895~7892882632"
+  }
 }

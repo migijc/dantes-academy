@@ -47,51 +47,59 @@ export default function DogSignUp(props) {
 
   return (
     <View style={styles.mainView}>
-      {/* <View style={styles.header}>
-        {pawIcon}
-        <Text style={styles.headerText}>Dante's Academy</Text>
-      </View> */}
       <TemporaryLogo />
-      <Text>Register Doggo</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={e => setDogName(e)}
-        placeholder="Dog's Name"
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={e => setDogBreed(e)}
-        placeholder="Breed"
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={e => setDogDOB(e)}
-        placeholder="DOB"
-      />
+      <Text style={styles.dogRegisterTitle}>Register your pup</Text>
+      <View>
+        <TextInput
+          style={styles.input}
+          onChangeText={e => setDogName(e)}
+          placeholder="Dog's Name"
+          placeholderTextColor={'gray'}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={e => setDogBreed(e)}
+          placeholder="Breed"
+          placeholderTextColor={'gray'}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={e => setDogDOB(e)}
+          placeholder="DOB"
+          placeholderTextColor={'gray'}
+        />
+      </View>
 
-      <Pressable style={styles.button} onPress={enterDogData}>
+      <Pressable style={styles.enrollButton} onPress={enterDogData}>
         <Text style={styles.buttonText}>Enroll Dog</Text>
       </Pressable>
     </View>
   );
 }
 
-let styles = StyleSheet.create({
-  input: {
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgb(150, 150, 150)',
-    color: 'black',
-  },
-
+const styles = StyleSheet.create({
   mainView: {
-    gap: 10,
-    // padding: 10,
-    height: '100%',
-    backgroundColor: '#101826',
+    backgroundColor: '#1b212e',
+    padding: 20,
+    flex: 1,
+    justifyContent: 'space-evenly',
   },
 
-  button: {
+  input: {
+    paddingLeft: 10,
+    color: '#eee',
+    borderBottomWidth: 0.2,
+    borderBottomColor: 'rgb(150, 150, 150)',
+  },
+
+  dogRegisterTitle: {
+    color: '#eee',
+    fontWeight: 600,
+    fontSize: 28,
+    textAlign: 'center',
+  },
+
+  enrollButton: {
     backgroundColor: '#00766e',
     height: 55,
     alignItems: 'center',
@@ -100,20 +108,10 @@ let styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: 'white',
+    textAlign: 'center',
+    color: '#1b212e',
     fontWeight: '800',
-  },
-
-  header: {
-    alignItems: 'center',
-  },
-
-  headerText: {
-    fontSize: 40,
-    padding: 15,
-    fontWeight: '900',
-    color: '#00766e',
+    fontSize: 18,
+    // paddingTop: 20,
   },
 });
-
-let pawIcon = <Fontisto name="paw" size={25} color="#00766e" />;

@@ -7,45 +7,30 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import registerCommandButtonClick from '../helperFunctions/registerCommandButtonClick';
-import auth from '@react-native-firebase/auth';
-import CommandNotes from './CommandNotes';
+import fundamentalCommands from '../commands/fundamentalCommands';
 
 const screenWidth = Dimensions.get('window').width;
 
 export default function OpenedCommand(props) {
   const [commandInfo, setCommandInfo] = useState(null);
   const [stepViewsList, setStepViewsList] = useState(null);
+  const [currentPage, setCurrentIndex] = useState(0);
 
-  let commandCollectionRef = firestore().collection('trainingCommands');
-  async function getCommandInfo() {
-    let commandDoc = commandCollectionRef.doc(
-      commands[props.route.params.commandName],
-    );
-    let resultDoc = await commandDoc.get();
-    let data = resultDoc.data();
-    setCommandInfo(data);
-  }
-
-  useEffect(() => {
-    getCommandInfo();
-  }, []);
+  //this function is used to calculate the current page of the scroll view by comparing offset of content to screen width
+  const handleMomentumScrollEnd = event => {
+    // Calculate the current page based on the scroll position
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const page = Math.round(offsetX / screenWidth);
+    setCurrentIndex(page);
+  };
 
   useEffect(() => {
-    console.log('renedered');
-    if (commandInfo) {
-      let docInfo = {
-        commandName: commandInfo.commandName,
-        commandId: commandInfo.commandId,
-        customNoteAdded: false,
-        dogId: 'needToAdd',
-        userId: auth().currentUser.uid,
-        submissionTime: `${new Date().getTime()}`,
-      };
-      registerCommandButtonClick(docInfo);
+    function getCommandInfo() {
+      let commandDoc = fundamentalCommands[props.route.params.commandName];
+      setCommandInfo(commandDoc);
     }
-  }, [commandInfo]);
+    getCommandInfo();
+  }, [props.route.params.commandName]);
 
   useEffect(() => {
     let count = 1;
@@ -68,24 +53,32 @@ export default function OpenedCommand(props) {
     }
   });
 
-  useEffect(() => {
-    console.log('rendered');
-  });
-
   if (commandInfo && stepViewsList) {
     return (
       <View style={styles.mainWrapper}>
-        <ScrollView horizontal pagingEnabled style={styles.mainView}>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          style={styles.mainView}
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={handleMomentumScrollEnd}>
           <View style={styles.pageStyle}>
-            <View style={styles.test}>
+            <View style={styles.test} justifyContent="space-evenly">
               <Text style={styles.commandTitle}>{commandInfo.commandName}</Text>
               <Text style={styles.description}>{commandInfo.description}</Text>
-              <Text style={styles.closingTip}>* {commandInfo.closingTip}</Text>
+              <View style={styles.closingTipWrapper}>
+                <Text style={styles.closingTip}>
+                  * {commandInfo.closingTip}
+                </Text>
+              </View>
             </View>
           </View>
           <View style={styles.pageStyle}>
             <ScrollView style={styles.test}>
               <View style={styles.stepsTitleContainer}>
+                <Text style={styles.commandTitle}>
+                  {commandInfo.commandName}
+                </Text>
                 <Text style={styles.stepsTitle}>Steps</Text>
               </View>
               <View style={styles.content}>
@@ -95,12 +88,8 @@ export default function OpenedCommand(props) {
               </View>
             </ScrollView>
           </View>
-          <View style={styles.pageStyle}>
-            <View style={styles.test}>
-              <CommandNotes thisCommand={commandInfo.commandName} />
-            </View>
-          </View>
         </ScrollView>
+        <PageIndicator pages={2} currentPage={currentPage} />
       </View>
     );
   } else {
@@ -108,124 +97,154 @@ export default function OpenedCommand(props) {
   }
 }
 
+const PageIndicator = ({pages, currentPage}) => {
+  const [indicatorsList, setIndicatorsList] = useState(null);
+
+  let styles = {};
+  styles.selected = {
+    width: 10,
+    height: 10,
+    borderColor: '#2a2828',
+    borderWidth: 1,
+    borderRadius: 900,
+    backgroundColor: '#2a2828',
+  };
+  styles.notSelected = {
+    width: 10,
+    height: 10,
+    borderColor: '#2a2828',
+    borderWidth: 1,
+    borderRadius: 900,
+    backgroundColor: 'transparent',
+  };
+
+  function getIndicators() {
+    let list = [];
+    for (let i = 0; i < pages; i++) {
+      let indicator = (
+        <View
+          style={i === currentPage ? styles.selected : styles.notSelected}
+          key={i}
+        />
+      );
+      list.push(indicator);
+    }
+    setIndicatorsList(list);
+  }
+
+  useEffect(() => {
+    getIndicators();
+  }, [pages, currentPage]);
+
+  if (indicatorsList) {
+    return (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 30,
+        }}>
+        {indicatorsList.map(indicator => {
+          return indicator;
+        })}
+      </View>
+    );
+  }
+};
+
 const styles = StyleSheet.create({
   mainWrapper: {
     height: '100%',
-    // padding: 20,
-  },
-
-  header: {
-    backgroundColor: '#101826',
+    backgroundColor: '#f1f1f1',
   },
 
   mainView: {
-    backgroundColor: '#101826',
-    // paddingTop: 10,
-    // width: '100%',
-    // flexDirection: 'row',
     flex: 1,
-    // paddingTop: 40,
-    // paddingBottom: 40,
   },
 
   pageStyle: {
     flex: 1,
     width: screenWidth,
-    paddingBottom: 60,
-    paddingTop: 60,
-    padding: 20,
   },
 
   test: {
     borderRadius: 19,
-    borderWidth: 1.2,
-    borderColor: '#00766e',
+    borderColor: 'transparent',
     flex: 1,
-    backgroundColor: 'transparent',
-    // padding: 12,
+    height: '100%',
   },
 
   content: {
-    // padding: 14,
-    paddingTop: 29,
-    paddingBottom: 29,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 3,
-    // borderTopWidth: 0,
-    // borderColor: '#00766e',
     backgroundColor: 'transparent',
+    padding: 10,
   },
 
   commandTitle: {
-    color: 'white',
-    fontSize: 30,
+    color: '#2a2828',
+    fontSize: 50,
     fontWeight: 700,
-    paddingLeft: 20,
-    textDecorationLine: 'underline',
+    paddingLeft: 15,
+    textDecorationLine: 'none',
+    width: '100%',
   },
 
   description: {
     textAlign: 'left',
     fontWeight: 700,
-    fontSize: 18,
-    padding: 27,
-    paddingTop: 10,
-    color: '#b4b4b4',
+    padding: 15,
+    color: '#2a2828',
+    fontSize: 17,
   },
 
   closingTip: {
-    fontWeight: 400,
-    fontSize: 15,
-    padding: 25,
+    fontWeight: 500,
+    fontSize: 13,
     textAlign: 'center',
     fontStyle: 'italic',
-    color: '#ad7934',
-    // color: 'black',
-    // backgroundColor: '#101826',
-    // minWidth: '100%',
+    color: '#2a2828',
   },
 
   stepText: {
-    color: '#5c5c5c',
-    fontWeight: 600,
-    fontSize: 17,
+    color: '#2a2828',
+    fontWeight: 400,
+    fontSize: 13,
   },
 
   stepsTitleContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    // padding: 8,
-    // paddingTop: 16,
-    backgroundColor: 'transparent',
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
 
   stepsTitle: {
     fontSize: 28,
-    color: 'white',
+    color: '#2a2828',
     fontWeight: 400,
   },
 
   stepContainer: {
     minWidth: '100%',
-    padding: 22,
-    // marginTop: 8,
-    backgroundColor: 'transparent',
-    borderRadius: 16,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    margin: 5,
+    padding: 5,
+    minHeight: 60,
   },
 
   pageTwo: {
     flex: 1,
   },
-});
 
-const commands = {
-  sit: 'LxRrU4CT0xCJAK7a9Q53',
-  off: 'xtSidPtiemZlp06Sj5Wp',
-  leaveIt: 'YE7RlnR088AOwW4KfIrJ',
-  wait: 'cGmrYYmZ0dJkZWXdgAJ7',
-  down: 'eBpdWNofNiUv3DpMnqd7',
-  focus: 'tYkWCiILPJi3ktrVBdfb',
-};
+  closingTipWrapper: {
+    backgroundColor: 'white',
+    padding: 20,
+    margin: 20,
+    borderRadius: 8,
+  },
+});

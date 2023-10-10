@@ -5,6 +5,9 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import android.os.Bundle;
+// import com.google.android.gms.ads.MobileAds;
+// import com.google.android.gms.ads.initialization.InitializationStatus;
+// import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 
 
@@ -18,6 +21,19 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "DantesAcademy";
   }
+
+  //  initialize the Google Mobile Ads SDK by calling MobileAds.initialize() which initializes the SDK and
+  // calls back a completion listener once initialization is complete, or after a 30-second timeout. This needs to be done only once, ideally at app launch.
+  //  protected void onCreate(Bundle savedInstanceState) {
+  //       super.onCreate(savedInstanceState);
+  //       setContentView(R.layout.activity_main);
+
+  //       MobileAds.initialize(this, new OnInitializationCompleteListener() {
+  //           @Override
+  //           public void onInitializationComplete(InitializationStatus initializationStatus) {
+  //           }
+  //       });
+  //   }
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link

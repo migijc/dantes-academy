@@ -8,27 +8,47 @@ import auth from '@react-native-firebase/auth';
 export default function CommandNotes(props) {
   const [toAddNote, setToAddNote] = useState(false);
   const [newNote, setNewNote] = useState('');
-  const [commandNotesSnapshot, setCommandNotesSnapshot] = useState(null);
+  const [commandNotesSnapshot, setCommandNotesSnapshot] = useState([]);
+  const [allNotes, setAllNotes] = useState([]);
 
   useEffect(() => {
     getSnapshot();
   }, []);
 
-  async function getSnapshot() {
+  function getSnapshot() {
     let userId = auth().currentUser.uid;
+    let listOfSnaps = [];
     let collectionRef = firestore().collection(
       `users/${userId}/${props.thisCommand}Notes`,
     );
-    let docs = await collectionRef.get();
-    console.log(docs);
-    docs.forEach(doc => {
-      console.log(doc.data());
+    collectionRef.onSnapshot(snapshot => {
+      setCommandNotesSnapshot(snapshot);
     });
   }
 
-  function getTimeStamp() {
-    let timestamp = new Date().getTime();
-    return timestamp;
+  useEffect(() => {
+    createNoteViews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commandNotesSnapshot]);
+
+  function createNoteViews() {
+    let viewsList = [];
+    let count = 1;
+    commandNotesSnapshot.forEach(snapshot => {
+      let data = snapshot;
+      data = data._data;
+      viewsList.push(
+        <View
+          key={count++}
+          style={{borderBottomColor: 'gray', borderBottomWidth: 1}}>
+          <Text
+            style={{color: 'gray', fontSize: 17, padding: 8, width: '100%'}}>
+            {data.noteText}
+          </Text>
+        </View>,
+      );
+    });
+    setAllNotes(viewsList);
   }
 
   function getNoteDocData() {
@@ -42,7 +62,7 @@ export default function CommandNotes(props) {
   }
 
   function addDoc() {
-    addNewNote(getNoteDocData(), props.thisCommand.toLowerCase());
+    addNewNote(getNoteDocData(), props.thisCommand);
   }
 
   let AddNoteButton = (
@@ -56,36 +76,34 @@ export default function CommandNotes(props) {
 
   if (!toAddNote) {
     return (
-      <View style={{flex: 1, backgroundColor: 'transparent', padding: 20}}>
+      <View style={{flex: 1, padding: 20}}>
         <Text style={{color: 'gray', fontSize: 21, width: '100%'}}>
           Command "{props.thisCommand}" Notes
         </Text>
         {AddNoteButton}
-        <View style={{flex: 1, backgroundColor: 'white'}}>
-          <Text style={{color: 'gray', fontSize: 16, width: '100%'}}>
-            Notes Go Here
-          </Text>
-          <Text style={{color: 'gray', fontSize: 16, width: '100%'}}>
-            {/* {props.thisCommand} */}
-          </Text>
+        <View style={{flex: 1}}>
+          {allNotes.map(note => {
+            return note;
+          })}
         </View>
       </View>
     );
   } else {
     return (
       <View style={{flex: 1}}>
-        <Text style={{color: 'white'}}>New Note Screen</Text>
+        <Text style={{color: 'gray', padding: 20}}>New Note Screen</Text>
         <View
           style={{
-            borderWidth: 3,
+            // borderWidth: 3,
             flex: 1,
-            backgroundColor: 'rgba(0,0,0,.4)',
-            borderBottomRightRadius: 20,
-            borderBottomLeftRadius: 20,
+            // backgroundColor: 'rgba(0,0,0,.4)',
+            // borderBottomRightRadius: 20,
+            // borderBottomLeftRadius: 20,
+            borderRadius: 20,
           }}>
           <TextInput
             style={{
-              color: 'white',
+              color: 'gray',
               width: '100%',
             }}
             placeholderTextColor="gray"
@@ -107,3 +125,8 @@ const plusIcon = (
     style={{position: 'absolute', top: -25, right: 0}}
   />
 );
+
+function getTimeStamp() {
+  let timestamp = new Date().getTime();
+  return timestamp;
+}

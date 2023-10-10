@@ -10,10 +10,12 @@ import {
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import auth from '@react-native-firebase/auth';
 import TemporaryLogo from './TemporaryLogo';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SignIn(props) {
   const [emailToAttempt, setEmailToAttempt] = useState('');
   const [passwordToAttempt, setPasswordToAttempt] = useState('');
+  const navigation = useNavigation();
 
   function handleNewAccountClick() {
     props.navigation.navigate('Sign Up');
@@ -21,22 +23,15 @@ export default function SignIn(props) {
 
   async function attemptSignIn(email, password) {
     let user = await auth().signInWithEmailAndPassword(email, password);
-    if (user) {
-      props.navigation.reset({
-        index: 0,
-        routes: [{name: 'Home'}],
-      });
-    }
+    // if (user) {
+    //  navigation.navigate('Home');
+    // }
   }
 
   return (
     <View style={styles.mainView}>
-      {/* <View style={styles.header}>
-        {pawIcon}
-        <Text style={styles.headerText}>Dante's Academy</Text>
-      </View> */}
       <TemporaryLogo />
-      <View style={styles.InputContainer}>
+      <View>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -56,9 +51,9 @@ export default function SignIn(props) {
       </View>
 
       <Pressable
-        style={styles.signInButton}
-        onPress={() => attemptSignIn(emailToAttempt, passwordToAttempt)}>
-        <Text style={{color: 'white', fontWeight: '800', fontSize: 19}}>
+        onPress={() => attemptSignIn(emailToAttempt, passwordToAttempt)}
+        style={styles.button}>
+        <Text style={{color: '#1b212e', fontWeight: '800', fontSize: 18}}>
           Sign In
         </Text>
       </Pressable>
@@ -69,18 +64,18 @@ export default function SignIn(props) {
 let styles = StyleSheet.create({
   mainView: {
     height: '100%',
-    backgroundColor: '#101826',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#1b212e',
+    padding: 20,
     // backgroundColor: 'rgb(235,235,235)',
   },
 
-  headerText: {
-    fontSize: 40,
-    padding: 15,
-    fontWeight: '900',
-    color: '#00766e',
-    // backgroundColor: '#005397',
-    // textShadowColor: '#6e2e42',
-    // textShadowRadius: 10,
+  button: {
+    backgroundColor: '#00766e',
+    height: 55,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 900,
   },
 
   InputContainer: {
@@ -94,23 +89,17 @@ let styles = StyleSheet.create({
     // height: 51,
     paddingLeft: 10,
     color: 'white',
-    borderBottomColor: 'rgb(150, 150, 150)',
     borderBottomWidth: 1,
-  },
-
-  signInButton: {
-    backgroundColor: '#00766e',
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 900,
+    borderBottomColor: 'rgb(150, 150, 150)',
   },
 
   signUpText: {
     textAlign: 'center',
-    color: '#00766e',
+    color: '#eee',
+    opacity: 0.6,
     fontWeight: '800',
-    fontSize: 18,
+    fontSize: 15,
+    paddingTop: 20,
   },
 
   header: {

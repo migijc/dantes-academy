@@ -28,17 +28,12 @@ export default function SignUp(props) {
       newUserEmail,
       newUserPassword,
     );
-    await usersCollection.doc(account.user.uid).set(getDocData());
-    let ghostNotesDocRef = firestore()
-      .collection(`users/${account.user.uid}/customNotes`)
-      .doc('ghost');
-    ghostNotesDocRef.set({hey: 1});
-
     let adDocRef = firestore()
       .collection(`users/${account.user.uid}/adInfo`)
       .doc('data');
     adDocRef.set({lastAdDisplayTime: null, displayAd: false});
-    props.navigation.reset({index: 0, routes: [{name: 'Dog Register'}]});
+    // props.navigation.reset({index: 0, routes: [{name: 'Dog Register'}]});
+    await usersCollection.doc(account.user.uid).set(getDocData());
   }
 
   function getDocData() {
@@ -54,41 +49,40 @@ export default function SignUp(props) {
 
   return (
     <View style={styles.mainView}>
-      {/* <View style={styles.header}>
-        <View style={styles.iconWrapper}>{pawIcon}</View>
-        <Text style={styles.headerText}>Dante's Academy</Text>
+      {/* <View >
+        <View >{pawIcon}</View>
+        <Text >Dante's Academy</Text>
       </View> */}
       <TemporaryLogo />
-      <View style={styles.basicInfo}>
+      <View>
         <TextInput
-          style={styles.input}
           onChangeText={e => {
             setNewUserName(e);
           }}
           placeholder="First name"
           placeholderTextColor={'#b6b6b6'}
           cursorColor={'#00766e'}
+          style={styles.input}
         />
         <TextInput
-          style={styles.input}
           onChangeText={e => {
             setNewUserLastName(e);
           }}
           placeholder="Last name"
           placeholderTextColor={'#b6b6b6'}
           cursorColor={'#00766e'}
+          style={styles.input}
         />
         <TextInput
-          style={styles.input}
           onChangeText={e => {
             setNewUserEmail(e);
           }}
           placeholder="Email"
           placeholderTextColor={'#b6b6b6'}
           cursorColor={'#00766e'}
+          style={styles.input}
         />
         <TextInput
-          style={styles.input}
           onChangeText={e => {
             setNewUserPassword(e);
           }}
@@ -96,9 +90,9 @@ export default function SignUp(props) {
           placeholderTextColor={'#b6b6b6'}
           secureTextEntry
           cursorColor={'#00766e'}
+          style={styles.input}
         />
         <TextInput
-          style={styles.input}
           onChangeText={e => {
             setPasswordConfirm(e);
           }}
@@ -106,10 +100,11 @@ export default function SignUp(props) {
           placeholderTextColor={'#b6b6b6'}
           secureTextEntry
           cursorColor={'#00766e'}
+          style={styles.input}
         />
       </View>
       {/* <SignOutButton /> */}
-      <Pressable style={styles.createAccountButton}>
+      <Pressable style={styles.button}>
         <Text style={styles.buttonText} onPress={createAccount}>
           Create Account
         </Text>
@@ -118,59 +113,40 @@ export default function SignUp(props) {
   );
 }
 
-const styles = StyleSheet.create({
+let pawIcon = <Fontisto name="paw" size={25} color="#00766e" />;
+
+let styles = StyleSheet.create({
+  input: {
+    // backgroundColor: 'white',
+    borderBottomWidth: 0.2,
+    borderBottomColor: '#eee',
+    color: '#eee',
+  },
+
   mainView: {
-    // height: '100%',
-    // width: '100%',
-    flex: 1,
-    backgroundColor: '#101826',
-    justifyContent: 'space-between',
-    // alignItems: 'center',
     padding: 20,
-    paddingTop: 80,
-    paddingBottom: 80,
+    height: '100%',
+    flex: 1,
+    justifyContent: 'space-evenly',
+    backgroundColor: '#1b212e',
   },
 
-  basicInfo: {
-    flexDirection: 'column',
-    backgroundColor: 'rgba(255,255,255, .2)',
-    gap: 10,
-    padding: 15,
-    borderRadius: 7,
-  },
-
-  pageTitle: {
-    fontSize: 28,
-    textAlign: 'center',
-  },
-
-  createAccountButton: {
+  button: {
     backgroundColor: '#00766e',
-    height: 55,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 900,
   },
 
   buttonText: {
-    color: 'white',
+    color: '#1b212e',
     fontWeight: '800',
-  },
-
-  input: {
-    // backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgb(150, 150, 150)',
-    color: 'white',
-    paddingLeft: 5,
+    fontSize: 18,
   },
 
   header: {
     alignItems: 'center',
-  },
-
-  iconWrapper: {
-    transform: [{rotate: '30deg'}],
   },
 
   headerText: {
@@ -180,5 +156,3 @@ const styles = StyleSheet.create({
     color: '#00766e',
   },
 });
-
-let pawIcon = <Fontisto name="paw" size={25} color="#00766e" />;

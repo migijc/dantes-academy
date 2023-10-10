@@ -1,29 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Pressable, StyleSheet, Text, View, Image} from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import auth from '@react-native-firebase/auth';
 import TemporaryLogo from './TemporaryLogo';
 import Styles from '../components/Styles';
+// import TestAd from './TestAd';
 
 export default function PreLogin(props) {
   function handleGetStartedClick() {
     props.navigation.navigate('Sign Up');
   }
-
   function handleLoginClick() {
     props.navigation.navigate('Sign In');
   }
-
-  // useEffect(() => {
-  //   console.log('rendered')
-  //   if (auth().currentUser) {
-  //     props.navigation.reset({
-  //       index: 0,
-  //       routes: [{name: 'Home'}],
-  //     });
-  //   }
-  // },[]);
 
   return (
     <View style={styles.mainView}>
@@ -32,7 +22,7 @@ export default function PreLogin(props) {
         <Text style={styles.slogan}>Unleash your dog and their potential</Text>
         <Pressable style={styles.signUp} onPress={handleGetStartedClick}>
           {PawIcon}
-          <Text style={styles.buttonText}>Get Started</Text>
+          <Text style={styles.buttonText}>Sign Up</Text>
         </Pressable>
 
         <Pressable style={styles.loginButton} onPress={handleLoginClick}>
@@ -40,6 +30,7 @@ export default function PreLogin(props) {
           <Text style={styles.loginButtonText}>Login</Text>
         </Pressable>
       </View>
+      {/* <TestAd /> */}
       {/* <Image style={styles.bgImage} source={require('../test1.jpg')} /> */}
     </View>
   );

@@ -8,10 +8,7 @@ export default function SignOutButton(props) {
 
   function signOut() {
     auth().signOut();
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Pre Login'}],
-    });
+    // navigation.replace('Pre Login');
   }
 
   return (
