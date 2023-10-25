@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Unleash",
+    "slug": "unleash",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.migijc.unleash"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5d795ed5-eec8-4494-9418-af93819efe09"
+      }
+    },
+    "owner": "migijc"
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-4877096179531895~7892882632",
+    "ios_app_id": "ca-app-pub-4877096179531895~5018610156"
+  }
+}

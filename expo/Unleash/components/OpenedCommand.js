@@ -206,7 +206,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
     fontStyle: 'italic',
-    color: '#2a2828',
+    color: '#2a282879',
+    // color: '#b78aff',
+
   },
 
   stepText: {
@@ -236,6 +238,8 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 5,
     minHeight: 60,
+    borderWidth:.5,
+    borderColor:'#dbdbdb',
   },
 
   pageTwo: {
@@ -247,5 +251,7 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 20,
     borderRadius: 8,
+    borderWidth:.5,
+    borderColor:'#dbdbdb',
   },
 });
